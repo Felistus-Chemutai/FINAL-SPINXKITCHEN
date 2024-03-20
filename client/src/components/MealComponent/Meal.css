@@ -35,3 +35,8 @@ body{
     grid-template-columns: repeat(auto-fit,minmax(150px,1fr));
     grid-gap: 2rem;
 }
+.indexContainer{
+    display: flex;
+    margin: 2.5rem;
+
+}

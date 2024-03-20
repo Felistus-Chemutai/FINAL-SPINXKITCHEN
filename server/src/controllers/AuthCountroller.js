@@ -14,11 +14,11 @@ const Register = async (req, res) => {
       return res.status(400).send({ status: "fail", message: errors.array() });
     }
 
-    const { user_name, password, email } = req.body;
+    const { username, password, email } = req.body;
 
     const existingUser = await prisma.user.findMany({
       where: {
-        OR: [{ user_name: user_name }, { email: email }],
+        OR: [{ username: user_name }, { email: email }],
       },
     });
     if (existingUser.length > 0) {
@@ -30,7 +30,7 @@ const Register = async (req, res) => {
 
     await prisma.user.create({
       data: {
-        user_name: user_name,
+        username: username,
         password: hashedPassword,
         email: email,
       },
