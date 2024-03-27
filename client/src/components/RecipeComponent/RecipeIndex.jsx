@@ -30,19 +30,16 @@ const RecipeIndex = ({ alphaIndex }) => {
     "Y",
     "Z",
   ];
-  
+
   return (
     <>
       {alpha.map((item, index) => {
         return (
           <div
-            className="alphabox" 
-            
-            onClick={() => alphaIndex(item)}
+            className="alphabox"
+            onClick={(event) => alphaIndex(item)}
             key={index}
-
           >
-            <div></div>
             <h3>{item}</h3>
           </div>
         );

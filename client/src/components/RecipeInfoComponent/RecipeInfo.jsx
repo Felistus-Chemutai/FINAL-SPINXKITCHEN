@@ -35,7 +35,7 @@ const RecipeInfo = () => {
               <h1>{meal.strMeal}</h1>
               <h2>{meal.strArea}</h2>
               <h3>{meal.strCategory}</h3>
-            </div>
+          
             <div className="recipe-details">
               <div className="ingredients">
                 <h2>Ingredients</h2>
@@ -61,6 +61,7 @@ const RecipeInfo = () => {
                   <iframe src={`https://www.youtube.com/embed/${videoId}`}></iframe>
                 </div>
               </div>
+            </div>
             </div>
           </div>
         </>

@@ -1,3 +1,10 @@
+.meal-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .card{
     width: 180px;
     border-radius: 1rem;

@@ -1,0 +1,5 @@
+.meal-container{
+    display: flex;
+    flex-direction: column;
+  
+}

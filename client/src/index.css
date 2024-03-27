@@ -1,0 +1,23 @@
+ 
+[data-theme=dark] {
+    background-color: black;
+    color: white;
+  }
+   
+  [data-theme=light] {
+    background-color: white;
+    color: black;
+  }
+   
+  body {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+   
+  .main {
+    padding: 0 !important;
+  }
+  button {
+    cursor: pointer;
+  }
+  

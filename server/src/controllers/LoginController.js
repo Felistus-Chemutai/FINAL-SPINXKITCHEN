@@ -22,17 +22,21 @@ const Login = async (req, res) => {
   }
 
   try {
-    const userLogin = await prisma.user.findUnique();
+    const userLogin = await prisma.user.findUnique({
+      where: {
+        email: req.body.email
+      }
+    });
 
     // Check if user exists
     if (rows.length === 0) {
-      return res.status(401).send("Invalid username or password"); // User not found
+      return res.status(401).send("Invalid email or password"); // User not found
     }
 
-    const user = rows[0];
-    const passwordMatch = await comparePasswords(password, user.password);
+    // const user = rows[0];
+    const passwordMatch = await comparePasswords(password, userLogin.password);
     if (!passwordMatch) {
-      return res.status(401).send("Invalid username or password");
+      return res.status(401).send("Incorrect email or password");
     }
     res.status(200).send("Login successful");
   } catch (error) {

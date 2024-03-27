@@ -1,20 +1,24 @@
 import React from "react";
 import soup from "/food/soup.jpg";
 import "../MealItemComponent/MealItem.css";
-import { Navigate, useNavigate } from "react-router-dom";
+import Favourite from "../FavouriteComponent/Favourite";
+import { Link } from "react-router-dom";
 
 const MealItem = ({ meal }) => {
-  const navigate = useNavigate();
+  console.log({meal})
   return (
-    <>
-      <div className="card" id={meal.IdMeal} onClick={Navigate(`/${meal.IdMeal}`)}> 
-        <img src={meal.strMealThumb} alt="" />
+    <div className="meal-item">
+      <div className="card" id={meal.IdMeal}>
+        <Link to={`/recipes/${meal.idMeal}`}>
+          <img src={meal.strMealThumb} alt="" />
+        </Link>
         <h3>
           {" "}
           {meal.strArea} {meal.strCategory}
         </h3>
       </div>
-    </>
+      <Favourite />
+    </div>
   );
 };
 

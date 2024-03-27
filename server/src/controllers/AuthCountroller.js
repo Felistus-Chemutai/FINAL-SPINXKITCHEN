@@ -18,7 +18,7 @@ const Register = async (req, res) => {
 
     const existingUser = await prisma.user.findMany({
       where: {
-        OR: [{ username: user_name }, { email: email }],
+        OR: [{ password: password }, { email: email }],
       },
     });
     if (existingUser.length > 0) {
@@ -51,10 +51,10 @@ const Login = async (req, res) => {
     if (!errors.isEmpty()) {
       return res.status(400).send({ status: "fail", message: errors.array() });
     }
-    const { user_name, password } = req.body;
+    const { email, password } = req.body;
     const user = await prisma.user.findUnique({
       where: {
-        user_name: user_name,
+        email: email,
       },
     });
 
@@ -74,7 +74,7 @@ const Login = async (req, res) => {
     const token = generateToken(user.id);
     req.session.user = user;
     res.cookie("auth_token", token);
-    res.status(201).send({ status: "success", token });
+    res.status(201).send({ status: "success", token, user });
   } catch (error) {
     res.status(500).send({ status: "fail", message: error.message });
   }

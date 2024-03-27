@@ -1,6 +1,7 @@
 import express from "express";
 import bcrypt from "bcrypt";
 import { PrismaClient } from "@prisma/client";
+import { generateToken } from "../Middlewares/auth.js";
 const prisma = new PrismaClient();
 const router = express.Router();
 
@@ -22,20 +23,22 @@ router.post("/", async (req, res) => {
   try {
     const userLogin = await prisma.user.findUnique({
       where: {
-        email: email
-      }
+        email: email,
+      },
     });
 
     // Check if user exists
     if (!userLogin) {
-      return res.status(401).send("Invalid username or password"); // User not found
+      return res.status(401).send("user not found"); // User not found
     }
 
-    const passwordMatch = await comparePasswords(password, userLogin.password);
+    const passwordMatch = await bcrypt.compare(password, userLogin.hashedPassword);
     if (!passwordMatch) {
-      return res.status(401).send("Invalid username or password");
+      return res.status(401).send("incorrect email or password");
     }
-    res.status(200).send("Login successful");
+    const auth_token = generateToken(userLogin.id);
+    res.cookie("auth_token", auth_token)
+    res.status(200).send({status: 'success', user: userLogin});
   } catch (error) {
     console.error("Error signing in:", error);
     res.status(500).send("Internal server error");
